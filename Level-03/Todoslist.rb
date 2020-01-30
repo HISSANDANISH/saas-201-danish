@@ -8,36 +8,24 @@ class Todo
   end
 
   def overdue?
-    if @due_date < Date.today
-      return true
-    else
-      return false
-    end
+    @due_date < Date.today
   end
 
   def due_today?
-    if @due_date == Date.today
-      return true
-    else
-      return false
-    end
+    @due_date == Date.today
   end
 
   def due_later?
-    if @due_date > Date.today
-      return true
-    else
-      return false
-    end
+    @due_date > Date.today
   end
 
   def to_displayable_string
-    if @completed == false
-      to_display_string = "[ ] #{@text} "
-    else
+    if @completed
       to_display_string = "[X] #{@text} "
+    else
+      to_display_string = "[ ] #{@text} "
     end
-    if @due_date != Date.today
+    if overdue? || due_later?
       to_display_string += "#{@due_date}"
     end
     return to_display_string
@@ -66,10 +54,8 @@ class TodosList
   end
 
   def to_displayable_list
-    array_of_displayable_strings = []
-    @todos.each do |todo|
-      array_of_displayable_strings.push(todo.to_displayable_string)
-    end
+    array_of_displayable_strings = @todos.map{|todo|
+      todo.to_displayable_string }
     array_to_displayable_string = array_of_displayable_strings.join("\n")
   end
 end
