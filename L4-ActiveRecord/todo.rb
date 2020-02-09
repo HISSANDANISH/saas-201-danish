@@ -14,7 +14,7 @@ class Todo < ActiveRecord::Base
   def to_displayable_string
     display_status = completed ? "[X]" : "[ ]"
     display_date = due_today? ? nil : due_date
-    "#{id.to_s}. #{display_status} #{todo_text} #{display_date}"
+    "#{id}. #{display_status} #{todo_text} #{display_date}"
   end
   def self.show_list
     puts "My todolist\n"
